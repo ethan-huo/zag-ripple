@@ -17,8 +17,9 @@ export function compact(obj: any): any {
   const keys = Reflect.ownKeys(obj).filter((key) => typeof key === "string")
   const result: any = {}
   for (const key of keys) {
-    // Ripple 0.3 exposes tracked values through `.value`; older `get()` is gone.
-    const v = access(obj[key])
+    // Function props are common Zag callbacks/store methods; only unwrap tracked values here.
+    const value = obj[key]
+    const v = isTracked(value) ? access(value) : value
     if (v === undefined) continue
     result[key] = compact(v)
   }

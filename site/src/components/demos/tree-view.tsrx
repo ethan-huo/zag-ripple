@@ -36,7 +36,7 @@ export function TreeView() {
 					<TreeNode
 						node={node}
 						indexPath={[nodeIndex]}
-						api={api}
+						api={api.value}
 					/>
 				}
 			}
@@ -99,34 +99,35 @@ const collection = tree.collection({
 function TreeNode(props) {
     let [indexPath, node, api] = trackSplit(props, ['indexPath', 'node', 'api']);
 	let nodeProps = track(() => ({ indexPath: indexPath.value, node: node.value }));
-    let nodeState = track(() => api.value.getNodeState(nodeProps.value));
+	let treeApi = track(() => api.value);
+    let nodeState = track(() => treeApi.value.getNodeState(nodeProps.value));
 
 	return <>
 	if (nodeState.value.isBranch) {
-		<div {...api.value.getBranchProps(nodeProps.value)}>
-			<div {...api.value.getBranchControlProps(nodeProps.value)}>
+		<div {...treeApi.value.getBranchProps(nodeProps.value)}>
+			<div {...treeApi.value.getBranchControlProps(nodeProps.value)}>
 				<Folder size={16} />
-				<span {...api.value.getBranchTextProps(nodeProps.value)}>{node.value.name}</span>
-				<span {...api.value.getBranchIndicatorProps(nodeProps.value)}>
+				<span {...treeApi.value.getBranchTextProps(nodeProps.value)}>{node.value.name}</span>
+				<span {...treeApi.value.getBranchIndicatorProps(nodeProps.value)}>
 					<ChevronRight size={16} />
 				</span>
 			</div>
-			<div {...api.value.getBranchContentProps(nodeProps.value)}>
-				<div {...api.value.getBranchIndentGuideProps(nodeProps.value)} />
+			<div {...treeApi.value.getBranchContentProps(nodeProps.value)}>
+				<div {...treeApi.value.getBranchIndentGuideProps(nodeProps.value)} />
 				if (node.value.children) {
 					for (const childNode of node.value.children; index childIndex) {
 						let newIndexPath = [...indexPath.value, childIndex];
 						<TreeNode
 							node={childNode}
 							indexPath={newIndexPath}
-							api={api}
+							api={treeApi.value}
 						/>
 					}
 				}
 			</div>
 		</div>
 	} else {
-		<div {...api.value.getItemProps(nodeProps.value)}>
+		<div {...treeApi.value.getItemProps(nodeProps.value)}>
 			<File size={16} />
 			{node.value.name}
 		</div>

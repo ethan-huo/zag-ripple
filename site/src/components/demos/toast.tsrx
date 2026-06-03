@@ -126,8 +126,7 @@ export function ToastGroup() {
 function ToastItem(props) {
 	let [index, actor, parent] = trackSplit(props, ['index', 'actor', 'parent']);
 
-	let composedProps = track(() => ({ ...actor.value, index, parent }));
-	let service = useMachine(toast.machine, composedProps);
+	let service = useMachine(toast.machine, { ...actor.value, index: index.value, parent: parent.value });
 	let api = track(() => toast.connect(service, normalizeProps));
 
 	return <>

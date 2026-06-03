@@ -28,7 +28,7 @@ export function CascadeSelect() {
 		<Portal target={document.body}>
 			<div {...api.value.getPositionerProps()}>
 				<div {...api.value.getContentProps()}>
-					<TreeNode node={collection.rootNode} indexPath={[]} value={[]} {api} />
+					<TreeNode node={collection.rootNode} indexPath={[]} value={[]} api={api.value} />
 				</div>
 			</div>
 		</Portal>
@@ -45,8 +45,9 @@ interface TreeNodeProps {
 
 function TreeNode(props) {
 	let [indexPath, value, node, api] = trackSplit(props, ['indexPath', 'value', 'node', 'api']);
+	let cascadeApi = track(() => api.value);
 	let nodeProps = track(() => ({ indexPath: indexPath.value, value: value.value, item: node.value }));
-	let nodeState = track(() => api.value.getItemState(nodeProps.value));
+	let nodeState = track(() => cascadeApi.value.getItemState(nodeProps.value));
 	let children = track(() => collection.getNodeChildren(node.value) || []);
 
 	let highlightedChild = track(() => nodeState.value.highlightedChild);
@@ -58,7 +59,7 @@ function TreeNode(props) {
 	);
 
 	return <>
-	<ul {...api.value.getListProps(nodeProps.value)}>
+	<ul {...cascadeApi.value.getListProps(nodeProps.value)}>
 		for (const item of children.value; index index) {
 			let itemProps = track(
 				() => ({
@@ -68,16 +69,16 @@ function TreeNode(props) {
 				}),
 			);
 
-			let itemState = track(() => api.value.getItemState(itemProps.value));
+			let itemState = track(() => cascadeApi.value.getItemState(itemProps.value));
 
-			<li {...api.value.getItemProps(itemProps.value)}>
-				<span {...api.value.getItemTextProps(itemProps.value)}>{item.value.label}</span>
+			<li {...cascadeApi.value.getItemProps(itemProps.value)}>
+				<span {...cascadeApi.value.getItemTextProps(itemProps.value)}>{item.value.label}</span>
 				if (itemState.value.hasChildren) {
 					<span data-scope="cascade-select" data-part="branch-indicator">
 						<ChevronRight size={14} />
 					</span>
 				}
-				<span {...api.value.getItemIndicatorProps(itemProps.value)}>
+				<span {...cascadeApi.value.getItemIndicatorProps(itemProps.value)}>
 					<Check size={12} />
 				</span>
 			</li>
@@ -88,7 +89,7 @@ function TreeNode(props) {
 			node={highlightedChild.value}
 			indexPath={highlightedIndexPath.value}
 			value={highlightedValue.value}
-			{api}
+			api={cascadeApi.value}
 		/>
 	}
 	</>

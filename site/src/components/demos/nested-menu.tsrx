@@ -9,18 +9,18 @@ export function NestedMenu() {
 		id: '1',
 		'aria-label': 'File',
 	});
-	let fileMenu = track(() => menu.connect(fileMenuService.value, normalizeProps));
+	let fileMenu = track(() => menu.connect(fileMenuService, normalizeProps));
 
 	// Level 2 - Share Menu
 	let shareMenuService = useMachine(menu.machine, {
 		id: '2',
 		'aria-label': 'Share',
 	});
-	let shareMenu = track(() => menu.connect(shareMenuService.value, normalizeProps));
+	let shareMenu = track(() => menu.connect(shareMenuService, normalizeProps));
 
 	setTimeout(() => {
-		fileMenu.value.setChild(shareMenuService.value);
-		shareMenu.value.setParent(fileMenuService.value);
+		fileMenu.value.setChild(shareMenuService);
+		shareMenu.value.setParent(fileMenuService);
 	});
 
 	// Share menu trigger

@@ -27,6 +27,26 @@ describe("basic", () => {
     expect(result.state.get()).toBe("foo")
   })
 
+  test("does not call function props while resolving machine props", async () => {
+    const onChange = vi.fn()
+    const machine = createMachine<any>({
+      props({ props }) {
+        expect(props.onChange).toBe(onChange)
+        return props
+      },
+      initialState() {
+        return "idle"
+      },
+      states: {
+        idle: {},
+      },
+    })
+
+    await renderMachine(machine, { onChange })
+
+    expect(onChange).not.toHaveBeenCalled()
+  })
+
   test("initial entry action", async () => {
     const fooEntry = vi.fn()
     const rootEntry = vi.fn()

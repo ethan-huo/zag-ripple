@@ -6,6 +6,7 @@ import { ChevronsUpDown } from '../../lib/lucide-icons.tsrx';
 
 export function Combobox() {
 	let options = track(comboboxData);
+	let currentInputValue = '';
 
 	const filter = createFilter({ sensitivity: 'base' });
 
@@ -22,9 +23,15 @@ export function Combobox() {
 	let service = useMachine(combobox.machine, {
 		id: 'combobox',
 		collection,
-		onInputValueChange({ inputValue }) {
+		onInputValueChange(details) {
+			let inputValue = details?.inputValue ?? '';
+			if (inputValue === currentInputValue) return;
+			currentInputValue = inputValue;
 			const filtered = comboboxData.filter((item) => filter.contains(item.label, inputValue));
-			options.value = filtered.length > 0 ? filtered : comboboxData;
+			const nextOptions = inputValue && filtered.length > 0 ? filtered : comboboxData;
+			queueMicrotask(() => {
+				if (options.value !== nextOptions) options.value = nextOptions;
+			});
 		},
 		placeholder: 'Type or select country',
 	});
