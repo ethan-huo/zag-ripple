@@ -2,7 +2,7 @@
 
   <h1>
     <br/>
-    <img src="https://cdn.jsdelivr.net/gh/anubra266/zag-ripple/site/src/assets/favicon.svg" height="150px" alt="logo" />
+    <img src="https://raw.githubusercontent.com/ethan-huo/zag-ripple/main/site/src/assets/favicon.svg" height="150px" alt="logo" />
     <br />
     zag-ripple
     <br />
@@ -19,7 +19,7 @@
 
 </a>
     <br />
-   RippleJS Adapter for Zag JS
+   Ripple/TSRX adapter for Zag JS state machines
     
   </sup>
   <br />
@@ -43,16 +43,12 @@ bun add github:ethan-huo/zag-ripple#v0.1.4
 Each release tag is a package snapshot whose repository root is installable as
 `zag-ripple`. Use the latest `vX.Y.Z` tag from GitHub when adding the dependency.
 
-## Usage
+## Demo
 
-Check components in [Repo](https://github.com/ethan-huo/zag-ripple/tree/main/site/src/components/demos).
+Browse the component demos at [zag-ripple.pages.dev](https://zag-ripple.pages.dev).
 
-## Sponsors ✨
+Demo source lives in [`site/src/components/demos`](https://github.com/ethan-huo/zag-ripple/tree/main/site/src/components/demos).
 
-Thanks goes to these wonderful people
+## Maintenance
 
-<p align="center">
-  <a href="https://patreon.com/anubra266?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link">
-    <img src='https://cdn.jsdelivr.net/gh/anubra266/static@main/sponsors.svg'/>
-  </a>
-</p>
+This fork is maintained for our own Ripple/TSRX projects and tracks current Zag JS releases as needed. It is not published to npm; install from the GitHub snapshot tags.
