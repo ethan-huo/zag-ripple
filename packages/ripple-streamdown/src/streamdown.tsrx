@@ -357,7 +357,9 @@ function createRenderBlocks(
         return {
           block,
           index,
-          key: `renderer:${index}:${renderer.name}:${source}`,
+          key: renderer.renderWhileStreaming
+            ? `renderer:${index}:${renderer.name}`
+            : `renderer:${index}:${renderer.name}:${source}`,
           renderer,
           type: "renderer",
         }
@@ -424,7 +426,7 @@ function RendererBlock(props: {
   const errorComponent = props.error ?? DefaultError
   const ErrorComponent = track(() => errorComponent)
 
-  if (props.block.isStreamingTail) {
+  if (props.block.isStreamingTail && !props.renderer.renderWhileStreaming) {
     return <RendererLoadingBlock block={props.block} loading={props.loading} />
   }
 

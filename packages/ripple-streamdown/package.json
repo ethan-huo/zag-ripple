@@ -14,16 +14,21 @@
     ".": "./src/streamdown.tsrx",
     "./core": "./src/core.ts",
     "./mermaid": "./src/mermaid.tsrx",
+    "./shiki": "./src/shiki.tsrx",
     "./styles.css": "./src/styles.css",
     "./types": "./src/types.ts",
     "./package.json": "./package.json"
   },
   "peerDependencies": {
     "mermaid": ">=11.0.0",
-    "ripple": ">=0.3.0"
+    "ripple": ">=0.3.0",
+    "shiki": ">=3.0.0"
   },
   "peerDependenciesMeta": {
     "mermaid": {
+      "optional": true
+    },
+    "shiki": {
       "optional": true
     }
   },

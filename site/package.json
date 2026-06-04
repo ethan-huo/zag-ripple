@@ -33,7 +33,6 @@
 	"dependencies": {
 		"@stackblitz/sdk": "^1.11.0",
 		"@tailwindcss/vite": "^4.1.13",
-		"@vercel/analytics": "^1.5.0",
 		"@zag-js/accordion": "^1.41.1",
 		"@zag-js/angle-slider": "^1.41.1",
 		"@zag-js/avatar": "^1.41.1",
@@ -89,6 +88,7 @@
 		"ripple-stick-to-bottom": "workspace:*",
 		"ripple-streamdown": "workspace:*",
 		"routing-machine": "^0.0.5",
+		"shiki": "^4.2.0",
 		"tailwind-merge": "^2.5.5",
 		"tailwindcss": "^4.1.9",
 		"tw-animate-css": "1.3.3",

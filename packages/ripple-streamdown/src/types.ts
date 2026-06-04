@@ -17,6 +17,7 @@ export type StreamdownBlockRenderer = {
   language?: string | string[]
   match?: (block: StreamdownCodeBlock) => boolean
   name: string
+  renderWhileStreaming?: boolean
 }
 
 export type StreamdownPlugins = {

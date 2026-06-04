@@ -168,8 +168,20 @@
   display: flex;
   justify-content: center;
   margin: 0.875rem 0;
+  min-height: 4rem;
   overflow: auto;
   padding: 1rem;
+  position: relative;
+  transition: border-color 140ms ease, opacity 140ms ease;
+}
+
+.ripple-streamdown-mermaid[data-state="stale"] {
+  border-color: color-mix(in srgb, var(--border, #d4d4d4) 70%, var(--muted-foreground, #737373));
+  opacity: 0.62;
+}
+
+.ripple-streamdown-mermaid[data-state="pending"] {
+  color: var(--muted-foreground, #737373);
 }
 
 .ripple-streamdown-mermaid svg {
@@ -183,6 +195,93 @@
 
 .ripple-streamdown-renderer-block .ripple-streamdown-mermaid {
   margin: 0;
+}
+
+.ripple-streamdown-shiki {
+  background: var(--card, #fff);
+  border: 1px solid var(--border, #d4d4d4);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-1, none);
+  margin: 0.875rem 0;
+  overflow: hidden;
+}
+
+.ripple-streamdown-renderer-block .ripple-streamdown-shiki {
+  margin: 0;
+}
+
+.ripple-streamdown-code-header {
+  align-items: center;
+  background: var(--muted, #f1f5f9);
+  border-bottom: 1px solid var(--border, #d4d4d4);
+  color: var(--muted-foreground, #737373);
+  display: flex;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.75rem;
+  height: 2.5rem;
+  padding: 0 0.875rem;
+  text-transform: lowercase;
+}
+
+.ripple-streamdown-shiki pre {
+  background: var(--ripple-streamdown-code-pre-bg, var(--card, #fff));
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--ripple-streamdown-code-pre-fg, inherit);
+  margin: 0;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.ripple-streamdown-shiki code {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  counter-reset: line;
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  padding: 0;
+  white-space: pre;
+}
+
+.ripple-streamdown-code-line {
+  display: block;
+}
+
+.ripple-streamdown-code-line-numbers .ripple-streamdown-code-line {
+  counter-increment: line;
+}
+
+.ripple-streamdown-code-line-numbers .ripple-streamdown-code-line::before {
+  color: var(--muted-foreground, #737373);
+  content: counter(line);
+  display: inline-block;
+  font-size: 0.75rem;
+  margin-right: 1rem;
+  opacity: 0.55;
+  text-align: right;
+  user-select: none;
+  width: 1.5rem;
+}
+
+.ripple-streamdown-code-token {
+  background: var(--ripple-streamdown-code-bg, transparent);
+  color: var(--ripple-streamdown-code-color, inherit);
+}
+
+html.dark .ripple-streamdown-shiki pre {
+  background: var(--shiki-dark-bg, var(--ripple-streamdown-code-pre-bg, var(--card, #fff)));
+  color: var(--shiki-dark, var(--ripple-streamdown-code-pre-fg, inherit));
+}
+
+html.dark .ripple-streamdown-code-token {
+  background: var(--shiki-dark-bg, var(--ripple-streamdown-code-bg, transparent));
+  color: var(--shiki-dark, var(--ripple-streamdown-code-color, inherit));
+  font-style: var(--shiki-dark-font-style, inherit);
+  font-weight: var(--shiki-dark-font-weight, inherit);
+  text-decoration: var(--shiki-dark-text-decoration, inherit);
 }
 
 .ripple-streamdown-block-skeleton {

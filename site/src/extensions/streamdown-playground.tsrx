@@ -4,6 +4,7 @@ import { Portal, track } from "ripple"
 import { StickToBottom, type StickToBottomController } from "ripple-stick-to-bottom"
 import { Streamdown } from "ripple-streamdown"
 import { createMermaidRenderer } from "ripple-streamdown/mermaid"
+import { createShikiRenderer } from "ripple-streamdown/shiki"
 import { normalizeProps, useMachine } from "zag-ripple"
 import { Button } from "../components/ui/button.tsrx"
 import { Navigation } from "../components/navigation.tsrx"
@@ -55,7 +56,7 @@ const splitByOptions: SelectOption<AnimationSplitBy>[] = [
 ]
 
 const streamdownPlugins = {
-  renderers: [createMermaidRenderer()],
+  renderers: [createMermaidRenderer(), createShikiRenderer()],
 }
 
 function PlaygroundSelect<T extends string>(props: {
