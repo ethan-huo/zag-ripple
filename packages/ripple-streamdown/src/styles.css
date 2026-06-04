@@ -1,3 +1,5 @@
+@import "katex/dist/katex.min.css";
+
 .ripple-streamdown {
   color: var(--foreground, currentColor);
   font-size: 0.9375rem;
@@ -133,6 +135,42 @@
 
 .ripple-streamdown input[type="checkbox"] {
   margin-right: 0.5rem;
+}
+
+.ripple-streamdown .katex {
+  font-size: 1.05em;
+}
+
+.ripple-streamdown .katex-display {
+  margin: 1rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+}
+
+.ripple-streamdown-mermaid {
+  align-items: center;
+  background: var(--card, #fff);
+  border: 1px solid var(--border, #d4d4d4);
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  margin: 0.875rem 0;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.ripple-streamdown-mermaid svg {
+  height: auto;
+  max-width: 100%;
+}
+
+.ripple-streamdown-mermaid-error {
+  color: var(--destructive, #dc2626);
+  display: block;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.8125rem;
+  white-space: pre-wrap;
 }
 
 .ripple-streamdown-caret {

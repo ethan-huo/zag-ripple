@@ -31,6 +31,13 @@ test("renderMarkdownToHtml supports gfm tables and task lists", () => {
   expect(html).toContain("checked")
 })
 
+test("renderMarkdownToHtml renders math with katex markup", () => {
+  const html = renderMarkdownToHtml("Inline math $$E = mc^2$$.")
+
+  expect(html).toContain("katex")
+  expect(html).toContain("E")
+})
+
 test("renderMarkdownToHtml strips unsafe script content", () => {
   const html = renderMarkdownToHtml("[bad](javascript:alert(1))<script>alert(1)</script>")
 

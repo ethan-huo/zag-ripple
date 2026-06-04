@@ -1,9 +1,11 @@
 import { Lexer } from "marked"
 import remend, { type RemendOptions } from "remend"
+import rehypeKatex from "rehype-katex"
 import rehypeRaw from "rehype-raw"
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize"
 import rehypeStringify from "rehype-stringify"
 import remarkGfm from "remark-gfm"
+import remarkMath from "remark-math"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import { unified } from "unified"
@@ -71,9 +73,11 @@ const schema = {
 const processor = unified()
   .use(remarkParse)
   .use(remarkGfm)
+  .use(remarkMath)
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeRaw)
   .use(rehypeSanitize, schema)
+  .use(rehypeKatex, { output: "htmlAndMathml" })
   .use(rehypeStringify)
 
 function getOpenTagPattern(tagName: string) {
