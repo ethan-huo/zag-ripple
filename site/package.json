@@ -84,6 +84,7 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"fuse.js": "^7.1.0",
+		"mermaid": "^11.15.0",
 		"ripple": "^0.3.72",
 		"ripple-stick-to-bottom": "workspace:*",
 		"ripple-streamdown": "workspace:*",
