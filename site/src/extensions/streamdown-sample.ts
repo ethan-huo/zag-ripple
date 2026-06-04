@@ -74,7 +74,7 @@ Visit [Streamdown on GitHub](https://github.com/vercel/streamdown) or paste a ra
 | Streaming repair | Supported | Powered by remend |
 | Code fences | Supported | Rendered as safe code blocks |
 | Math | Fallback | Plugin renderer is planned |
-| Mermaid | Fallback | Plugin renderer is planned |
+| Mermaid | Renderer | Opt-in plugin renderer |
 | CJK | Supported | Chinese, Japanese, Korean text |
 
 ---

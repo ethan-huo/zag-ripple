@@ -1,7 +1,9 @@
 import * as popover from "@zag-js/popover"
 import * as select from "@zag-js/select"
 import { Portal, track } from "ripple"
-import { createMermaidPlugin, Streamdown } from "ripple-streamdown"
+import { StickToBottom, type StickToBottomController } from "ripple-stick-to-bottom"
+import { Streamdown } from "ripple-streamdown"
+import { createMermaidRenderer } from "ripple-streamdown/mermaid"
 import { normalizeProps, useMachine } from "zag-ripple"
 import { Button } from "../components/ui/button.tsrx"
 import { Navigation } from "../components/navigation.tsrx"
@@ -53,7 +55,7 @@ const splitByOptions: SelectOption<AnimationSplitBy>[] = [
 ]
 
 const streamdownPlugins = {
-  mermaid: createMermaidPlugin(),
+  renderers: [createMermaidRenderer()],
 }
 
 function PlaygroundSelect<T extends string>(props: {
@@ -254,8 +256,10 @@ export function StreamdownPlayground() {
   const animationSplitBy = track<AnimationSplitBy>("word")
   const streamSpeed = track(30)
   const isStreaming = track(false)
+  const isOutputAtBottom = track(true)
   const tokenIndex = track(0)
   let streamTimer: ReturnType<typeof setInterval> | null = null
+  let outputScrollController: StickToBottomController | null = null
 
   const stopStreaming = () => {
     if (streamTimer) {
@@ -277,6 +281,7 @@ export function StreamdownPlayground() {
 
     mode.value = "streaming"
     isStreaming.value = true
+    outputScrollController?.scrollToBottom({ animation: "instant", ignoreEscapes: true })
 
     streamTimer = setInterval(() => {
       if (tokenIndex.value >= tokens.length) {
@@ -382,7 +387,22 @@ export function StreamdownPlayground() {
 
           <div class="streamdown-playground-pane">
             <div class="streamdown-pane-title">{"Streamdown Output"}</div>
-            <div class="streamdown-output">
+            <StickToBottom
+              class="streamdown-output"
+              bottomInset={48}
+              initial={false}
+              contextRef={(controller) => {
+                outputScrollController = controller
+              }}
+              onStateChange={(snapshot) => {
+                isOutputAtBottom.value = snapshot.isAtBottom
+              }}
+              resize={{
+                damping: 0.7,
+                mass: 1.25,
+                stiffness: 0.05,
+              }}
+            >
               <Streamdown
                 value={mode.value === "streaming" ? markdownOutput.value : markdown.value}
                 mode={mode.value}
@@ -398,7 +418,19 @@ export function StreamdownPlayground() {
                   : false}
                 caret={caret.value === "none" ? undefined : caret.value}
               />
-            </div>
+            </StickToBottom>
+            if (mode.value === "streaming" && !isOutputAtBottom.value) {
+              <button
+                class="streamdown-scroll-to-bottom"
+                type="button"
+                aria-label="Scroll to bottom"
+                onClick={() => {
+                  outputScrollController?.scrollToBottom()
+                }}
+              >
+                <ChevronDown class="h-5 w-5" />
+              </button>
+            }
           </div>
         </section>
       </main>

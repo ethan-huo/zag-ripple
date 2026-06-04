@@ -1,0 +1,23 @@
+{
+  "name": "ripple-stick-to-bottom",
+  "version": "0.0.0",
+  "description": "Ripple/TSRX stick-to-bottom scroll primitives for streaming content.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --noEmit",
+    "test": "bun test"
+  },
+  "exports": {
+    ".": "./src/stick-to-bottom.tsrx",
+    "./controller": "./src/controller.ts",
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "ripple": ">=0.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}

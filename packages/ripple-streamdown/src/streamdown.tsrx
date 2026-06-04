@@ -1,5 +1,4 @@
 import { Fragment, track, trackAsync } from "ripple"
-import type { MermaidConfig } from "mermaid"
 import {
   completeMarkdown,
   type MarkdownRenderCache,
@@ -9,43 +8,13 @@ import {
   type StreamdownMode,
   type StreamdownOptions,
 } from "./core"
-
-export type StreamdownCodeBlock = {
-  code: string
-  isStreamingTail: boolean
-  language: string
-  meta?: string
-  source: string
-}
-
-export type StreamdownBlockRenderProps = {
-  block: StreamdownCodeBlock
-}
-
-export type StreamdownBlockRendererResult = string | Promise<string>
-
-export type StreamdownBlockRenderer = {
-  fallback?: (props: StreamdownBlockRenderProps) => unknown
-  language?: string | string[]
-  match?: (block: StreamdownCodeBlock) => boolean
-  name: string
-  render: (props: StreamdownBlockRenderProps) => StreamdownBlockRendererResult
-}
-
-export type StreamdownDiagramPlugin = {
-  getMermaid: (config?: MermaidConfig) => {
-    initialize: (config: MermaidConfig) => void
-    render: (id: string, source: string) => Promise<{ svg: string }>
-  }
-  language: string
-  name: "mermaid"
-  type: "diagram"
-}
-
-export type StreamdownPlugins = {
-  mermaid?: StreamdownDiagramPlugin
-  renderers?: StreamdownBlockRenderer[]
-}
+import type {
+  StreamdownBlockErrorProps,
+  StreamdownBlockRenderer,
+  StreamdownBlockRenderProps,
+  StreamdownCodeBlock,
+  StreamdownPlugins,
+} from "./types"
 
 export type StreamdownAnimateOptions = {
   animation?: "fadeIn" | "blurIn" | "slideUp" | (string & {})
@@ -53,11 +22,6 @@ export type StreamdownAnimateOptions = {
   easing?: string
   sep?: "word" | "char"
   stagger?: number
-}
-
-export type StreamdownMermaidOptions = {
-  config?: MermaidConfig
-  errorComponent?: (props: StreamdownMermaidErrorProps) => unknown
 }
 
 export type StreamdownProps = StreamdownOptions & {
@@ -69,29 +33,16 @@ export type StreamdownProps = StreamdownOptions & {
   blockError?: (props: StreamdownBlockErrorProps) => unknown
   blockSkeleton?: (props: StreamdownBlockRenderProps) => unknown
   dir?: "auto" | "ltr" | "rtl"
-  mermaid?: StreamdownMermaidOptions
   parseMarkdownIntoBlocksFn?: (markdown: string) => string[]
   plugins?: StreamdownPlugins
 }
 
-let mermaidModulePromise: Promise<typeof import("mermaid")> | null = null
-let mermaidId = 0
 const maxRenderCacheSize = 256
 const codeFencePattern = /^```([^\s`]*)?([^\n`]*)\n([\s\S]*?)(?:\n```)?\s*$/
 const htmlTagPattern = /<[^>]*>/g
 const whitespacePattern = /\s/
 const whitespaceOnlyPattern = /^\s+$/
 const skipAnimationTags = new Set(["annotation", "code", "math", "pre", "svg"])
-
-export type StreamdownBlockErrorProps = StreamdownBlockRenderProps & {
-  error: unknown
-}
-
-export type StreamdownMermaidErrorProps = {
-  chart: string
-  error: string
-  retry: () => void
-}
 
 type StreamdownMarkdownRenderBlock = {
   html: string
@@ -310,11 +261,6 @@ function pruneRenderCache(cache: MarkdownRenderCache) {
   }
 }
 
-function getMermaidModule() {
-  mermaidModulePromise ??= import("mermaid")
-  return mermaidModulePromise
-}
-
 function getRendererLanguageMatches(renderer: StreamdownBlockRenderer, language: string) {
   if (!renderer.language) {
     return false
@@ -327,31 +273,8 @@ function getRendererLanguageMatches(renderer: StreamdownBlockRenderer, language:
   return renderer.language === language
 }
 
-function getMermaidRenderer(plugin: StreamdownDiagramPlugin, config?: MermaidConfig): StreamdownBlockRenderer {
-  return {
-    language: plugin.language,
-    name: plugin.name,
-    async render(props) {
-      const mermaid = plugin.getMermaid(config)
-      const result = await mermaid.render(`ripple-streamdown-mermaid-${mermaidId++}`, props.block.code)
-
-      return result.svg
-    },
-  }
-}
-
 function getBlockRenderers(props: StreamdownProps) {
-  const renderers = props.plugins?.renderers ?? []
-  const mermaidPlugin = props.plugins?.mermaid
-
-  if (!mermaidPlugin) {
-    return renderers
-  }
-
-  return [
-    ...renderers,
-    getMermaidRenderer(mermaidPlugin, props.mermaid?.config),
-  ]
+  return props.plugins?.renderers ?? []
 }
 
 function findBlockRenderer(block: StreamdownCodeBlock, props: StreamdownProps) {
@@ -472,34 +395,6 @@ function createRenderBlocks(
       type: "markdown",
     }
   })
-}
-
-export function createMermaidPlugin(config?: MermaidConfig): StreamdownDiagramPlugin {
-  return {
-    getMermaid(nextConfig?: MermaidConfig) {
-      return {
-        initialize(mermaidConfig) {
-          void mermaidConfig
-        },
-        async render(id, source) {
-          const mermaidModule = await getMermaidModule()
-          const mermaid = mermaidModule.default
-
-          mermaid.initialize({
-            startOnLoad: false,
-            securityLevel: "strict",
-            ...config,
-            ...nextConfig,
-          })
-
-          return mermaid.render(id, source)
-        },
-      }
-    },
-    language: "mermaid",
-    name: "mermaid",
-    type: "diagram",
-  }
 }
 
 function detectTextDirection(text: string) {

@@ -13,16 +13,23 @@
   "exports": {
     ".": "./src/streamdown.tsrx",
     "./core": "./src/core.ts",
+    "./mermaid": "./src/mermaid.ts",
     "./styles.css": "./src/styles.css",
+    "./types": "./src/types.ts",
     "./package.json": "./package.json"
   },
   "peerDependencies": {
+    "mermaid": ">=11.0.0",
     "ripple": ">=0.3.0"
+  },
+  "peerDependenciesMeta": {
+    "mermaid": {
+      "optional": true
+    }
   },
   "dependencies": {
     "katex": "^0.17.0",
     "marked": "^18.0.4",
-    "mermaid": "^11.15.0",
     "rehype-katex": "^7.0.1",
     "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",
