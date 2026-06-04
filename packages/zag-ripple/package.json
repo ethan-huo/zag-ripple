@@ -39,7 +39,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "test": "vitest",
+    "test": "bun run build && vitest",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "prepack": "clean-package",

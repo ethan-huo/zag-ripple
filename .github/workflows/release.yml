@@ -70,11 +70,10 @@ jobs:
         if: steps.version.outputs.released == 'true'
         run: bun --filter zag-ripple test -- --run
 
-      - name: Build package
+      - name: Verify package build
         if: steps.version.outputs.released == 'true'
         run: |
           set -euo pipefail
-          bun --filter zag-ripple build
           test -f packages/zag-ripple/dist/index.mjs
           test -f packages/zag-ripple/dist/index.js
           test -f packages/zag-ripple/dist/index.d.ts
