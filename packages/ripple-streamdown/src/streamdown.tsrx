@@ -1,4 +1,4 @@
-import { effect, Fragment, track } from "ripple"
+import { effect, track } from "ripple"
 import type { MermaidConfig } from "mermaid"
 import {
   renderMarkdownToHtml,
@@ -12,6 +12,13 @@ export type StreamdownProps = StreamdownOptions & {
   children?: string
   class?: string
   className?: string
+  animated?: boolean
+  animation?: {
+    duration?: number
+    easing?: string
+    effect?: "fade" | "blur" | "slide"
+    splitBy?: "word" | "character"
+  }
   mermaid?: {
     config?: MermaidConfig
   }
@@ -34,6 +41,81 @@ function getContent(props: StreamdownProps) {
 
 function getCaretText(caret: StreamdownCaret) {
   return caret === "circle" ? "●" : "▋"
+}
+
+function getCaretHtml(caret: StreamdownCaret) {
+  return `<span class="ripple-streamdown-caret" aria-hidden="true">${getCaretText(caret)}</span>`
+}
+
+function getLastContentInsertionIndex(html: string) {
+  const trailingWhitespace = html.match(/\s*$/)?.[0] ?? ""
+  const body = html.slice(0, html.length - trailingWhitespace.length)
+  const closeTargets = [
+    "</code></pre>",
+    "</p>",
+    "</li>",
+    "</h1>",
+    "</h2>",
+    "</h3>",
+    "</h4>",
+    "</h5>",
+    "</h6>",
+    "</td>",
+    "</th>",
+  ]
+
+  let insertionIndex = -1
+
+  for (const closeTarget of closeTargets) {
+    const index = body.lastIndexOf(closeTarget)
+
+    if (index > insertionIndex) {
+      insertionIndex = index
+    }
+  }
+
+  return {
+    body,
+    insertionIndex: insertionIndex === -1 ? body.length : insertionIndex,
+    trailingWhitespace,
+  }
+}
+
+function getAnimationStyle(props: StreamdownProps) {
+  const duration = Math.max(0, props.animation?.duration ?? 150)
+  const easing = props.animation?.easing ?? "ease"
+
+  return `--ripple-streamdown-token-duration:${duration}ms;--ripple-streamdown-token-easing:${easing};`
+}
+
+function animateLastTextSegment(html: string, props: StreamdownProps) {
+  const { body, insertionIndex, trailingWhitespace } = getLastContentInsertionIndex(html)
+  const beforeInsertion = body.slice(0, insertionIndex)
+  const afterInsertion = body.slice(insertionIndex)
+  const lastTagEnd = beforeInsertion.lastIndexOf(">")
+  const textStart = lastTagEnd + 1
+  const text = beforeInsertion.slice(textStart)
+
+  if (!text.trim()) {
+    return html
+  }
+
+  const pattern = props.animation?.splitBy === "character" ? /(\S)(\s*)$/ : /(\S+)(\s*)$/
+  const effect = props.animation?.effect ?? "fade"
+  const style = getAnimationStyle(props)
+  const animatedText = text.replace(
+    pattern,
+    `<span class="ripple-streamdown-token" data-effect="${effect}" style="${style}">$1</span>$2`
+  )
+
+  return `${beforeInsertion.slice(0, textStart)}${animatedText}${afterInsertion}${trailingWhitespace}`
+}
+
+function insertCaretIntoHtml(html: string, caret: StreamdownCaret) {
+  const { body, insertionIndex, trailingWhitespace } = getLastContentInsertionIndex(html)
+  const caretHtml = getCaretHtml(caret)
+
+  return `${body.slice(0, insertionIndex)}${caretHtml}${body.slice(insertionIndex)}${trailingWhitespace}`
 }
 
 function mergeClasses(...classes: Array<string | undefined | false>) {
@@ -95,12 +177,29 @@ export function Streamdown(props: StreamdownProps) {
   )
   const mode = track<StreamdownMode>(() => props.mode ?? "static")
   const shouldShowCaret = track(() => Boolean(props.caret && props.isAnimating))
+  const displayHtml = track(() => {
+    const htmlWithAnimation = props.isAnimating && props.animated !== false
+      ? animateLastTextSegment(html.value, props)
+      : html.value
+
+    if (!shouldShowCaret.value || !props.caret) {
+      return htmlWithAnimation
+    }
+
+    return insertCaretIntoHtml(htmlWithAnimation, props.caret)
+  })
 
   effect(() => {
     const node = root.value
-    const htmlVersion = html.value
+    const htmlVersion = displayHtml.value
 
-    if (!node || props.isAnimating) {
+    if (!node) {
+      return
+    }
+
+    node.innerHTML = htmlVersion
+
+    if (props.isAnimating) {
       return
     }
 
@@ -122,12 +221,6 @@ export function Streamdown(props: StreamdownProps) {
       data-ripple-streamdown=""
       data-mode={mode.value}
     >
-      <Fragment innerHTML={html.value} />
-      if (shouldShowCaret.value && props.caret) {
-        <span class="ripple-streamdown-caret" aria-hidden="true">
-          {getCaretText(props.caret)}
-        </span>
-      }
     </div>
   )
 }

@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "bun --filter zag-ripple test -- --run",
-    "site": "bun --filter ./site",
+    "site": "bun --filter ./site dev",
     "build": "bun run --filter './packages/*' build"
   },
   "keywords": [],

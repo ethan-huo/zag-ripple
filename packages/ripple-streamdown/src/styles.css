@@ -175,9 +175,26 @@
 
 .ripple-streamdown-caret {
   animation: ripple-streamdown-caret-blink 1s steps(2, start) infinite;
-  color: var(--primary, currentColor);
+  color: currentColor;
   display: inline-block;
   margin-left: 0.125rem;
+}
+
+.ripple-streamdown-token {
+  animation-duration: var(--ripple-streamdown-token-duration, 150ms);
+  animation-fill-mode: both;
+  animation-name: ripple-streamdown-token-fade;
+  animation-timing-function: var(--ripple-streamdown-token-easing, ease);
+  display: inline;
+}
+
+.ripple-streamdown-token[data-effect="blur"] {
+  animation-name: ripple-streamdown-token-blur;
+}
+
+.ripple-streamdown-token[data-effect="slide"] {
+  animation-name: ripple-streamdown-token-slide;
+  display: inline-block;
 }
 
 @keyframes ripple-streamdown-caret-blink {
@@ -189,5 +206,39 @@
   46%,
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes ripple-streamdown-token-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ripple-streamdown-token-blur {
+  from {
+    filter: blur(3px);
+    opacity: 0;
+  }
+
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+@keyframes ripple-streamdown-token-slide {
+  from {
+    opacity: 0;
+    transform: translateY(0.2rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

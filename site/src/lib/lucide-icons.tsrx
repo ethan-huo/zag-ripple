@@ -1305,6 +1305,43 @@ export function Search(props: IconProps) {
   </svg>
 }
 
+export function Settings(props: IconProps) {
+  const {
+    class: classValue,
+    className,
+    size = 24,
+    color = "currentColor",
+    strokeWidth = 2,
+    absoluteStrokeWidth = false,
+    title,
+    children,
+    ...rest
+  } = props
+  const computedStrokeWidth = getStrokeWidth(size, strokeWidth, absoluteStrokeWidth)
+
+  return <svg
+    {...rest}
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    stroke-width={computedStrokeWidth}
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class={mergeClasses("lucide-icon", "lucide", "lucide-settings", classValue, className)}
+    {...(!title && !children && { "aria-hidden": "true" })}
+  >
+    if (title) {
+      <title>{title}</title>
+    }
+    <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+    <circle cx="12" cy="12" r="3" />
+    {children}
+  </svg>
+}
+
 export function Sparkles(props: IconProps) {
   const {
     class: classValue,
