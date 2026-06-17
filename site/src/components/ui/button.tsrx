@@ -1,6 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from "../../lib/utils";
-import { RouteContext } from "../../lib/route-context";
 
 
 export const buttonVariants = cva(
@@ -44,13 +43,11 @@ export function Button({
     ...props
 }:any) @{
 
-  const router = RouteContext.get()
-
     <>
     @if (href) {
             <a
                 class={cn(buttonVariants({ variant, size }), className)}
-                {...target === "_blank" ? { href } : router.value.getLinkProps({ to: href })}
+                href={href}
                 target={target}
                 {...props}
             >

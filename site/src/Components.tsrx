@@ -6,10 +6,8 @@ import { components } from './lib/components';
 import * as icons from "./components/icons.tsrx";
 import { useSearch } from "./lib/use-search.tsrx";
 import { track } from "ripple";
-import { RouteContext } from "./lib/route-context";
 
 export function Components() @{
-    const router = RouteContext.get()
     let searchTerm = track("")
     const results = useSearch(searchTerm, components,
         [
@@ -23,7 +21,7 @@ export function Components() @{
     <title>{"Components | ZagRipple"}</title>
   </head>
 
-  <Navigation noSearch />
+  <Navigation noSearch section="components" />
 
   <main class="mx-auto max-w-[89rem] px-6 py-10">
     // Header
@@ -53,7 +51,7 @@ export function Components() @{
     <div class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         @for (const comp of results.value) {
             const Icon = icons[comp.icon] || icons.defaultIcon;
-            <a {...router.value.getLinkProps({ to: `/components/${comp.id}` })}>
+            <a href={`/components/${comp.id}`}>
                 <Card class="group relative cursor-pointer overflow-hidden p-4 transition-colors hover:bg-muted/40">
             // Edge line keeps cards aligned with the Base UI docs grid language.
             <div class="absolute inset-x-0 top-0 h-px bg-border" />

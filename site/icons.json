@@ -4,7 +4,9 @@
 			"arrow-down-left",
 			"arrow-left",
 			"arrow-right",
+			"blocks",
 			"bold",
+			"book-open",
 			"calendar-days",
 			"check",
 			"chevron-down",
@@ -35,10 +37,13 @@
 			"rotate-ccw",
 			"search",
 			"settings",
+			"shapes",
 			"sparkles",
 			"sun",
+			"terminal",
 			"triangle-alert",
 			"underline",
+			"wand-sparkles",
 			"x",
 			"zap"
 		]

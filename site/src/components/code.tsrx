@@ -1,5 +1,7 @@
 
-import { codeToHtml } from 'https://esm.sh/shiki@3.0.0'
+// npm `shiki` (not the esm.sh URL build) so the module is resolvable during SSR.
+// codeToHtml still only runs in the client ref callback below.
+import { codeToHtml } from 'shiki'
 import { cn } from '../lib/utils'
 
 export function Code({code, language, ...rest}:any) @{

@@ -99,7 +99,17 @@ created.
 
 ## Documentation Entrypoints
 
-- Zag JS LLM docs: https://zagjs.com/llms.txt
-- Ripple/TSRX LLM docs: https://www.ripple-ts.com/llms.txt
+### Required Reading (agents without prior context MUST read all three before touching adapter or demo code)
+
+The Ripple + TSRX integration story has shifted recently; reading from memory
+will produce stale guidance. Fetch these via `ctx read <url>` before planning
+any change to `useMachine`, `normalizeProps`, TSRX demos, or build wiring:
+
 - TSRX LLM docs: https://tsrx.dev/llms.txt
+- TSRX rethink blog (current design rationale): https://tsrx.dev/blog/rethinking-tsrx
+- Ripple LLM docs: https://www.ripple-ts.com/llms.txt
+
+### Supplemental references
+
+- Zag JS LLM docs: https://zagjs.com/llms.txt
 - Base UI LLM docs for the demo site style reference: https://base-ui.com/llms.txt

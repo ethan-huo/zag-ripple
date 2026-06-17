@@ -18,9 +18,19 @@ export function LuArrowRight(&{ size = '1em', ...props }: IconProps) @{
 	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" />
   <path d="m12 5 7 7-7 7" /></g></svg>
 }
+// lucide/blocks · ISC
+export function LuBlocks(&{ size = '1em', ...props }: IconProps) @{
+	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2" />
+  <rect x="14" y="2" width="8" height="8" rx="1" /></g></svg>
+}
 // lucide/bold · ISC
 export function LuBold(&{ size = '1em', ...props }: IconProps) @{
 	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8" /></g></svg>
+}
+// lucide/book-open · ISC
+export function LuBookOpen(&{ size = '1em', ...props }: IconProps) @{
+	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14" />
+  <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></g></svg>
 }
 // lucide/calendar-days · ISC
 export function LuCalendarDays(&{ size = '1em', ...props }: IconProps) @{
@@ -200,6 +210,12 @@ export function LuSettings(&{ size = '1em', ...props }: IconProps) @{
 	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
   <circle cx="12" cy="12" r="3" /></g></svg>
 }
+// lucide/shapes · ISC
+export function LuShapes(&{ size = '1em', ...props }: IconProps) @{
+	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z" />
+  <rect x="3" y="14" width="7" height="7" rx="1" />
+  <circle cx="17.5" cy="17.5" r="3.5" /></g></svg>
+}
 // lucide/sparkles · ISC
 export function LuSparkles(&{ size = '1em', ...props }: IconProps) @{
 	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
@@ -219,6 +235,11 @@ export function LuSun(&{ size = '1em', ...props }: IconProps) @{
   <path d="m6.34 17.66-1.41 1.41" />
   <path d="m19.07 4.93-1.41 1.41" /></g></svg>
 }
+// lucide/terminal · ISC
+export function LuTerminal(&{ size = '1em', ...props }: IconProps) @{
+	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19h8" />
+  <path d="m4 17 6-6-6-6" /></g></svg>
+}
 // lucide/triangle-alert · ISC
 export function LuTriangleAlert(&{ size = '1em', ...props }: IconProps) @{
 	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
@@ -229,6 +250,17 @@ export function LuTriangleAlert(&{ size = '1em', ...props }: IconProps) @{
 export function LuUnderline(&{ size = '1em', ...props }: IconProps) @{
 	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4" />
   <line x1="4" x2="20" y1="20" y2="20" /></g></svg>
+}
+// lucide/wand-sparkles · ISC
+export function LuWandSparkles(&{ size = '1em', ...props }: IconProps) @{
+	<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" />
+  <path d="m14 7 3 3" />
+  <path d="M5 6v4" />
+  <path d="M19 14v4" />
+  <path d="M10 2v2" />
+  <path d="M7 8H3" />
+  <path d="M21 16h-4" />
+  <path d="M11 3H9" /></g></svg>
 }
 // lucide/x · ISC
 export function LuX(&{ size = '1em', ...props }: IconProps) @{
