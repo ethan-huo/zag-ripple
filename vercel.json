@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "bun --filter zag-ripple build && bun --filter ./site build && node site/node_modules/.bin/ripple-adapt-vercel --out-dir site/dist --runtime nodejs24.x",
+  "installCommand": "bun install --frozen-lockfile"
+}
