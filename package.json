@@ -1,0 +1,49 @@
+{
+  "name": "ripple-zag",
+  "version": "0.2.0",
+  "description": "Zag JS adapter for RippleJS",
+  "keywords": [
+    "js",
+    "machine",
+    "xstate",
+    "statechart",
+    "component",
+    "zag-js",
+    "RippleJS",
+    "ripple"
+  ],
+  "author": "Abraham Aremu <anubra266@gmail.com>",
+  "contributors": [
+    "ethan-huo"
+  ],
+  "homepage": "https://github.com/ethan-huo/ripple-zag#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "repository": "https://github.com/ethan-huo/ripple-zag",
+  "sideEffects": false,
+  "bugs": {
+    "url": "https://github.com/ethan-huo/ripple-zag/issues"
+  },
+  "dependencies": {
+    "@zag-js/core": "^1.41.1",
+    "@zag-js/types": "^1.41.1",
+    "@zag-js/utils": "^1.41.1"
+  },
+  "peerDependencies": {
+    "ripple": ">=0.3.0"
+  }
+}
