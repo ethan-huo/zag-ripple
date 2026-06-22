@@ -7,4 +7,5 @@ export default defineConfig({
   target: "es2020",
   treeshake: "smallest",
   format: ["esm", "cjs"],
+  minify: true,
 })

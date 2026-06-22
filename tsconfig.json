@@ -10,6 +10,9 @@
 		"jsxImportSource": "ripple",
 		"noEmit": true,
 		"isolatedModules": true,
-		"skipLibCheck": true
-	}
+		"skipLibCheck": true,
+		"tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo",
+		"types": ["vitest/globals", "node"]
+	},
+	"include": ["src", "tests"]
 }
